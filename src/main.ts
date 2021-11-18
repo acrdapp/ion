@@ -13,44 +13,51 @@ export function test<T extends Function>(asyncFn: T, suite: any) {
   suite();
 };
 
-let prevMessage: string;
+let prevMessage: string | null;
+let curTest: Mocha.Test | undefined;
+let prevTest: Mocha.Test | undefined;
 
 export function given(...input: any) {
+  if (prevTest !== curTest) {
+    prevMessage = null;
+    curTest = prevTest;
+  }
   const fn = suites[prevFn.name];
+
   return {
     assert: (assertion: (result: ReturnType<typeof fn>) => {}) => {
-      const msg = givenMessage('assert', input, assertion);
-      it(msg, async () => {
+      const msg = prevMessage ?? givenMessage('assert', input, assertion);
+      prevTest = it(msg, async () => {
         const result = await fn(...input);
         assert(assertion(result));
       });
       return given(...input);
     },
     expect: (expected: ReturnType<typeof fn>) => {
-      const msg = givenMessage('expect', input, expected);
-      it(msg, async () => {
+      const msg = prevMessage ?? givenMessage('expect', input, expected);
+      prevTest = it(msg, async () => {
         const result = await fn(...input);
         expect(result).to.equal(expected);
       });
       return given(...input);
     },
     expectAsync: async (expected: ReturnType<typeof fn>) => {
-      const msg = givenMessage('expectAsync', input, expected);
-      it(msg, async () => {
+      const msg = prevMessage ?? givenMessage('expectAsync', input, expected);
+      prevTest = it(msg, async () => {
         const result = await fn(...input);
         expect(result).to.equal(expected);
       });
       return given(...input);
     },
-    message: async (message: string) => {
-      prevMessage = message;
+    message: (content: string) => {
+      prevMessage = content;
       return given(...input);
     },
-    rejectedWith: async (message: string) => {
-      const msg = givenMessage('rejectedWith', input, message);
-      it(msg, async () => {
+    rejectedWith: async (errorMessage: string) => {
+      const msg = prevMessage ?? givenMessage('rejectedWith', input, errorMessage);
+      prevTest = it(msg, async () => {
         const result = () => fn(...input);
-        await expect(result()).to.be.rejectedWith(message);
+        await expect(result()).to.be.rejectedWith(errorMessage);
       });
       return given(...input);
     },
@@ -64,5 +71,5 @@ function givenMessage(type: keyof ReturnType<typeof given>, input: any, expected
     expectAsync: `given: ${JSON.stringify(input)}, resolve: ${JSON.stringify(expected)}`,
     message: prevMessage,
     rejectedWith: `given: ${JSON.stringify(input)}, reject: ${JSON.stringify(expected)}`,
-  }[type];
+  }[type]!;
 }

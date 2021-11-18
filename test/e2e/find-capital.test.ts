@@ -5,6 +5,8 @@ function findCapital(country: 'UK' | 'France' | 'Antarctica') {
     const capital = {
       'Antarctica': 'South Pole',
       'France': 'Paris',
+      'Germany': 'Berlin',
+      'Italy': 'Rome',
       'UK': 'London',
     }[country];
 
@@ -19,7 +21,8 @@ function findCapital(country: 'UK' | 'France' | 'Antarctica') {
 test(findCapital, async () => {
   given('').rejectedWith('Country does not exist');
   given('Antarctica').expectAsync('South Pole');
-  given('Atlantis').rejectedWith('C');
+  given('Atlantis').rejectedWith('Country does not exist');
   given('France').expectAsync('Paris');
   given('UK').expectAsync('London');
+  given('Italy').expectAsync('Rome');
 });

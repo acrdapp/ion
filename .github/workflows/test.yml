@@ -1,0 +1,40 @@
+name: Test and Push
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [dev]
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x, 17.x]
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Packages
+        run: npm ci
+
+      - name: Test
+        run: npm test
+  push:
+    name: Push to stable
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
+
+      - name: Push to stable branch
+        run: |
+          git config --global user.name 'GH Actions' 
+          git config --global user.email 'user@example.com'
+          git push origin HEAD:stable

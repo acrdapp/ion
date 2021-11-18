@@ -2,8 +2,9 @@
   "name": "@accord/ion",
   "version": "1.0.1",
   "description": "Ion is an simple async data driven testing tool built on Mocha and Chai.",
-  "main": "src/main.ts",
+  "main": "lib/main.js",
   "scripts": {
+    "install": "tsc",
     "test": "ts-mocha test/**/*.test.ts",
     "test:e2e": "ts-mocha test/unit/*.test.ts",
     "test:unit": "ts-mocha test/e2e/*.test.ts"

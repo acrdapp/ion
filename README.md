@@ -4,9 +4,13 @@ Ion is an simple async data driven testing tool built on mocha and chai.
 
 **Purpose**: Test Node.js promises with less code!
 
+### Install
+
+`npm i accord-dot-app/ion`
+
 Take a basic async function that sends a message. It may have to perform database queries, and more. It takes time.
 
-```
+```js
 function sendMessage(to: string, content: string) {
   return new Promise((resolve, reject) => {
     const minLength = 3;
@@ -25,7 +29,7 @@ function sendMessage(to: string, content: string) {
 
 Write tests like this...
 
-```
+```js
 import { test, given } from '@accord/ion';
 
 test(sendMessage, async () => {
@@ -33,20 +37,24 @@ test(sendMessage, async () => {
   given('adam@example.com', 'aa').reject();
   given('adam@example.com', 'yay').resolve();
   given('adam@example.com', 'Plz transfer money').rejectWith('No scammers plz');
-  given('adam@example.com', 'very gud unit test, pls pass @@@@@').rejectWith('Content too long');
+  given('adam@example.com', 'very gud unit test, pls pass @@@@@').rejectWith(
+    'Content too long'
+  );
   given('adam@example.com', 'proper msg')
     .message('Payload is correct')
-    .assert((msg) => expect(msg).to.deep.equal({
-      to: 'adam@example.com',
-      content: 'proper msg',
-      timestamp: '18-11-2021 02:18',
-    }));
+    .assert((msg) =>
+      expect(msg).to.deep.equal({
+        to: 'adam@example.com',
+        content: 'proper msg',
+        timestamp: '18-11-2021 02:18',
+      })
+    );
 });
 ```
 
 Or just like this...
 
-```
+```js
 test(sendMessage, async () => {
   given('adam@example.com', '').reject();
   given('adam@example.com', 'aa').reject();
@@ -55,12 +63,11 @@ test(sendMessage, async () => {
   given('adam@example.com', 'very gud unit test, pls pass @@@@@').reject();
   given('adam@example.com', 'proper msg').resolve();
 });
-
 ```
 
 Not this...
 
-```
+```js
 describe('sendMessage', async () => {
   it(`valid email, empty string content, rejected'`, () => {
     const result = () => await sendMessage('adam@example.com', '');

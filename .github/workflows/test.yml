@@ -37,4 +37,4 @@ jobs:
         run: |
           git config --global user.name 'GH Actions' 
           git config --global user.email 'user@example.com'
-          git push origin HEAD:stable
+          git push origin HEAD:stable --force

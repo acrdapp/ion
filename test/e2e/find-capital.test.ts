@@ -18,11 +18,11 @@ function findCapital(country: 'UK' | 'France' | 'Antarctica') {
   });
 }
 
-test(findCapital, async () => {
-  given('').rejectedWith('Country does not exist');
-  given('Antarctica').expectAsync('South Pole');
-  given('Atlantis').rejectedWith('Country does not exist');
-  given('France').expectAsync('Paris');
-  given('UK').expectAsync('London');
-  given('Italy').expectAsync('Rome');
+test(findCapital, () => {
+  given('').rejectWith('Country does not exist');
+  given('Antarctica').resolveWith('South Pole');
+  given('Atlantis').rejectWith('Country does not exist');
+  given('France').resolveWith('Paris');
+  given('UK').resolveWith('London');
+  given('Italy').resolveWith('Rome');
 });

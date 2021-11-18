@@ -1,6 +1,6 @@
 import { given, test } from '../../src/main';
 
-function isPrime (num: number) {
+function isPrime(num: number) {
   for (var i = 2; i < num; i++) {
     if (num % i === 0) return false;
   }

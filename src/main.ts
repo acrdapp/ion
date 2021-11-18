@@ -9,7 +9,7 @@ let prevFn: any;
 export function test<T extends Function>(asyncFn: T, suite: any) {
   prevFn = asyncFn;
   suites[prevFn.name] = asyncFn;
-
+  
   suite();
 };
 
@@ -41,8 +41,16 @@ export function given(...input: any) {
       });
       return given(...input);
     },
-    expectAsync: async (expected: ReturnType<typeof fn>) => {
-      const msg = prevMessage ?? givenMessage('expectAsync', input, expected);
+    resolve: async () => {
+      const msg = prevMessage ?? givenMessage('resolve', input);
+      prevTest = it(msg, async () => {
+        const result = () => fn(...input);
+        await expect(result()).not.to.be.rejected;
+      });
+      return given(...input);
+    },
+    resolveWith: async (expected: ReturnType<typeof fn>) => {
+      const msg = prevMessage ?? givenMessage('resolveWith', input, expected);
       prevTest = it(msg, async () => {
         const result = await fn(...input);
         expect(result).to.equal(expected);
@@ -53,8 +61,16 @@ export function given(...input: any) {
       prevMessage = content;
       return given(...input);
     },
-    rejectedWith: async (errorMessage: string) => {
-      const msg = prevMessage ?? givenMessage('rejectedWith', input, errorMessage);
+    reject: async () => {
+      const msg = prevMessage ?? givenMessage('reject', input);
+      prevTest = it(msg, async () => {
+        const result = () => fn(...input);
+        await expect(result()).to.be.rejected;
+      });
+      return given(...input);
+    },
+    rejectWith: async (errorMessage: string) => {
+      const msg = prevMessage ?? givenMessage('rejectWith', input, errorMessage);
       prevTest = it(msg, async () => {
         const result = () => fn(...input);
         await expect(result()).to.be.rejectedWith(errorMessage);
@@ -64,12 +80,14 @@ export function given(...input: any) {
   }
 }
 
-function givenMessage(type: keyof ReturnType<typeof given>, input: any, expected: any): string {
+function givenMessage(type: keyof ReturnType<typeof given>, input: any, expected?: any): string {
   return {
     assert: `given: ${JSON.stringify(input)}, assert: ${JSON.stringify(expected)}`,
     expect: `given: ${JSON.stringify(input)}, return: ${JSON.stringify(expected)}`,
-    expectAsync: `given: ${JSON.stringify(input)}, resolve: ${JSON.stringify(expected)}`,
+    resolve: `given: ${JSON.stringify(input)}, resolved`,
+    resolveWith: `given: ${JSON.stringify(input)}, resolve: ${JSON.stringify(expected)}`,
     message: prevMessage,
-    rejectedWith: `given: ${JSON.stringify(input)}, reject: ${JSON.stringify(expected)}`,
+    reject: `given: ${JSON.stringify(input)}, rejected`,
+    rejectWith: `given: ${JSON.stringify(input)}, reject: ${JSON.stringify(expected)}`,
   }[type]!;
 }

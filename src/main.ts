@@ -77,6 +77,14 @@ export function given(...input: any) {
       });
       return given(...input);
     },
+    throw: (errorMessage: string) => {
+      const msg = prevMessage ?? givenMessage('throw', input, errorMessage);
+      prevTest = it(msg, () => {
+        const result = () => fn(...input);
+        expect(result).to.throw(errorMessage);
+      });
+      return given(...input);
+    },
   }
 }
 
@@ -89,5 +97,6 @@ function givenMessage(type: keyof ReturnType<typeof given>, input: any, expected
     message: prevMessage,
     reject: `given: ${JSON.stringify(input)}, rejected`,
     rejectWith: `given: ${JSON.stringify(input)}, reject: ${JSON.stringify(expected)}`,
+    throw: `given: ${JSON.stringify(input)}, throw: ${JSON.stringify(expected)}`,
   }[type]!;
 }

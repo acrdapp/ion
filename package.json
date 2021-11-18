@@ -1,6 +1,6 @@
 {
   "name": "@accord/ion",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Ion is an simple async data driven testing tool built on Mocha and Chai.",
   "main": "lib/main.js",
   "scripts": {

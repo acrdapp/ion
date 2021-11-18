@@ -25,7 +25,7 @@ export function given(...input: any) {
   const fn = suites[prevFn.name];
 
   return {
-    assert: (assertion: (result: ReturnType<typeof fn>) => {}) => {
+    assert: (assertion: (result?: ReturnType<typeof fn>) => {}) => {
       const msg = prevMessage ?? givenMessage('assert', input, assertion);
       prevTest = it(msg, async () => {
         const result = await fn(...input);

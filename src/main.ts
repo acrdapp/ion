@@ -9,8 +9,8 @@ let prevFn: any;
 export function test<T extends Function>(asyncFn: T, suite: any) {
   prevFn = asyncFn;
   suites[prevFn.name] = asyncFn;
-  
-  suite();
+
+  return describe(prevFn.name, suite);
 };
 
 let prevMessage: string | null;

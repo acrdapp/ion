@@ -1,4 +1,4 @@
-import { given, test } from '../../src/main';
+import { given, test } from '../../../src/main';
 
 function findCapital(country: 'UK' | 'France' | 'Antarctica') {
   return new Promise((resolve, reject) => {

@@ -6,8 +6,8 @@
   "scripts": {
     "install": "tsc",
     "test": "ts-mocha test/**/*.test.ts",
-    "test:e2e": "ts-mocha test/unit/*.test.ts",
-    "test:unit": "ts-mocha test/e2e/*.test.ts"
+    "test:e2e": "ts-mocha test/e2e/?s/*.test.?s",
+    "test:unit": "ts-mocha test/unit/*.test.ts"
   },
   "keywords": [],
   "author": "",

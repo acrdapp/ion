@@ -1,5 +1,4 @@
-import { expect } from 'chai';
-import { given, test } from '../../src/main';
+import { given, test } from '../../../src/main';
 
 function sendMessage(to: string, content: string) {
   return new Promise((resolve, reject) => {
@@ -24,9 +23,5 @@ test(sendMessage, async () => {
   given('adam@example.com', 'very gud unit test, pls pass @@@@@').rejectWith('Content too long');
   given('adam@example.com', 'proper msg')
     .message('Payload is correct')
-    .assert((msg) => expect(msg).to.deep.equal({
-      to: 'adam@example.com',
-      content: 'proper msg',
-      timestamp: '18-11-2021 02:18',
-    }));
+    .assert((msg) => msg.content === 'proper msg');
 });

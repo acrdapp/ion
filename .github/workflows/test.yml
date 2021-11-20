@@ -25,6 +25,9 @@ jobs:
 
       - name: Test
         run: npm test
+
+      - name: Build Passes
+        run: tsc
   push:
     name: Push to stable
     runs-on: ubuntu-latest

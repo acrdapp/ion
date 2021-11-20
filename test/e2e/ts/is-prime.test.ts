@@ -1,4 +1,4 @@
-import { given, test } from '../../src/main';
+import { given, test } from '../../../src/main';
 
 function isPrime(num: number) {
   if (num == undefined || Number.isNaN(num))
@@ -13,8 +13,8 @@ function isPrime(num: number) {
 test(isPrime, () => {
   given().throw('Invalid number provided');
   given(null).throw('Invalid number provided');
-  given(0).expect(false);
-  given(2).expect(true);
-  given(3).expect(true);
-  given(4).expect(false);
+  given(0).return(false);
+  given(2).return(true);
+  given(3).return(true);
+  given(4).return(false);
 })

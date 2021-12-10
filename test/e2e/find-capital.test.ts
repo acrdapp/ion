@@ -14,7 +14,7 @@ function findCapital(country: 'UK' | 'France' | 'Antarctica') {
       (capital)
         ? resolve(capital)
         : reject('Country does not exist');
-    }, 25)
+    }, 25);
   });
 }
 

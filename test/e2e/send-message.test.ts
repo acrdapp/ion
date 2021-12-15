@@ -21,14 +21,11 @@ function sendMessage(to: string, content: string) {
 }
 
 test(sendMessage, async () => {
-  given('adam@example.com', '').rejectWith('Content too short');
-  given('adam@example.com', 'aa').reject();
-  given('adam@example.com', 'yay').resolve();
-  given('adam@example.com', 'Plz transfer money').rejectWith('No scammers plz');
-  given('adam@example.com', 'very gud unit test, pls pass @@@@@').rejectWith('Content too long');
+  beforeEach(() => messages = []);
+
   given('adam@example.com', 'proper msg')
     .message('Payload is correct, resolved')
-    .before(() => messages = [{}])
+    .before(() => messages = [])
     .resolveWith({
       id: 1,
       to: 'adam@example.com',
@@ -46,4 +43,9 @@ test(sendMessage, async () => {
       content: 'proper msg',
       timestamp: '18-11-2021 02:18',
     });
+  given('adam@example.com', '').rejectWith('Content too short');
+  given('adam@example.com', 'aa').reject();
+  given('adam@example.com', 'yay').resolve();
+  given('adam@example.com', 'Plz transfer money').rejectWith('No scammers plz');
+  given('adam@example.com', 'very gud unit test, pls pass @@@@@').rejectWith('Content too long');
 });

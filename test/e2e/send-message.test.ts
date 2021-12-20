@@ -22,6 +22,7 @@ function sendMessage(to: string, content: string) {
 
 test(sendMessage, async () => {
   beforeEach(() => messages = []);
+  afterEach(() => messages = []);
 
   given('adam@example.com', 'proper msg')
     .message('Payload is correct, resolved')

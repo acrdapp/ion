@@ -92,12 +92,9 @@ export function given(...input: any) {
     /** Assert that a promise is rejected with a specific error message. */
     rejectWith: (errorMessage: string) => {
       prevTest = it(getMsg('rejectWith', errorMessage), async () => {
-        await beforeTest[prevTestId]?.();
-        console.log('before');
-        
+        await beforeTest[prevTestId]?.();        
         const result = () => fn(...input);
         await expect(result()).to.be.rejectedWith(errorMessage);
-        console.log('after');
         
       });
       return given(...input);

@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@accord/ion": "github:acrdapp/ion",
+    "@acrd/ion": "github:acrdapp/ion",
     "@types/chai": "^4.2.22",
     "@types/chai-as-promised": "^7.1.4",
     "@types/mocha": "^10.0.1",

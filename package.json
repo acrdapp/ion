@@ -1,6 +1,6 @@
 {
-  "name": "@accord/ion",
-  "version": "1.0.3",
+  "name": "@acrd/ion",
+  "version": "1.0.4",
   "description": "Ion is an simple async data driven testing tool built on Mocha and Chai.",
   "main": "lib/main.js",
   "scripts": {
@@ -13,17 +13,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@accord/ion": "github:accord-dot-app/ion",
+    "@accord/ion": "github:acrdapp/ion",
     "@types/chai": "^4.2.22",
     "@types/chai-as-promised": "^7.1.4",
-    "@types/mocha": "^9.0.0",
+    "@types/mocha": "^10.0.1",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
-    "mocha": "^9.1.3",
-    "ts-mocha": "^8.0.0",
+    "mocha": "^10.2.0",
+    "ts-mocha": "^10.0.0",
     "typescript": "^4.5.2"
   },
   "devDependencies": {
-    "@types/node": "^16.11.7"
+    "@types/node": "^16.18.9"
   }
 }

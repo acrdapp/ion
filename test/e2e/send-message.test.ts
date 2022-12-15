@@ -25,21 +25,21 @@ test(sendMessage, async () => {
   afterEach(() => messages = []);
 
   given('adam@example.com', 'proper msg')
-    .message('Payload is correct, resolved')
-    .before(() => messages = [])
-    .resolveWith({
-      id: 1,
-      to: 'adam@example.com',
-      content: 'proper msg',
-      timestamp: '18-11-2021 02:18',
-    });
-  given('adam@example.com', 'proper msg')
     .before(async () => messages = [
       await sendMessage('me', 'sample text')
     ])
     .message('2 messages, id is incremented')
     .resolveWith({
       id: 2,
+      to: 'adam@example.com',
+      content: 'proper msg',
+      timestamp: '18-11-2021 02:18',
+    });
+  given('adam@example.com', 'proper msg')
+    .message('Payload is correct, resolved')
+    .before(() => messages = [])
+    .resolveWith({
+      id: 1,
       to: 'adam@example.com',
       content: 'proper msg',
       timestamp: '18-11-2021 02:18',

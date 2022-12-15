@@ -1,4 +1,4 @@
-# accord.ion
+# acrd.ion
 
 Ion is an simple async data driven testing tool built on mocha and chai.
 
@@ -6,7 +6,7 @@ Ion is an simple async data driven testing tool built on mocha and chai.
 
 ### Install
 
-`npm i accord-dot-app/ion`
+`npm i acrdapp/ion`
 
 Take a basic async function that sends a message. It may have to perform database queries, and more. It takes time.
 
@@ -30,7 +30,7 @@ function sendMessage(to: string, content: string) {
 Write tests like this...
 
 ```js
-import { test, given } from '@accord/ion';
+import { test, given } from '@acrd/ion';
 
 test(sendMessage, async () => {
   given('adam@example.com', '').rejectWith('Content too short');
